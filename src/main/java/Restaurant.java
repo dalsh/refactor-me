@@ -1,4 +1,9 @@
+import java.time.DayOfWeek;
 import java.time.LocalTime;
+
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.TUESDAY;
+import static java.time.DayOfWeek.WEDNESDAY;
 
 /**
  * @author Hugh Glykod
@@ -6,13 +11,6 @@ import java.time.LocalTime;
 public class Restaurant {
 
     private String name;
-
-    public static final int MONDAY = 0;
-    public static final int TUESDAY = 1;
-    public static final int WEDNESDAY = 2;
-    public static final int THURSDAY = 3;
-    public static final int FRIDAY = 4;
-    public static final int SATURDAY = 5;
 
     private String mondayOpen = "09:00";
     private String mondayClose = "18:00";
@@ -27,7 +25,7 @@ public class Restaurant {
     private String saturdayOpen = "09:00";
     private String saturdayClose = "18:00";
 
-    public boolean isOpen(int day) {
+    public boolean isOpen(DayOfWeek day) {
         if (day == MONDAY) {
             if (LocalTime.now().isAfter(LocalTime.parse(mondayOpen)) && LocalTime.now().isBefore(LocalTime.parse(mondayClose))) {
                 return true;
@@ -49,21 +47,21 @@ public class Restaurant {
                 return false;
             }
         }
-        if (day == THURSDAY) {
+        if (day == DayOfWeek.THURSDAY) {
             if (LocalTime.now().isAfter(LocalTime.parse(thursdayOpen)) && LocalTime.now().isBefore(LocalTime.parse(thursdayClose))) {
                 return true;
             } else {
                 return false;
             }
         }
-        if (day == FRIDAY) {
+        if (day == DayOfWeek.FRIDAY) {
             if (LocalTime.now().isAfter(LocalTime.parse(fridayOpen)) && LocalTime.now().isBefore(LocalTime.parse(fridayClose))) {
                 return true;
             } else {
                 return false;
             }
         }
-        if (day == SATURDAY) {
+        if (day == DayOfWeek.SATURDAY) {
             if (LocalTime.now().isAfter(LocalTime.parse(saturdayOpen)) && LocalTime.now().isBefore(LocalTime.parse(saturdayClose))) {
                 return true;
             } else {

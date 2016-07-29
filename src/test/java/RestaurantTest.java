@@ -1,5 +1,8 @@
 import org.junit.Test;
 
+import java.time.DayOfWeek;
+
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -12,8 +15,10 @@ public class RestaurantTest {
 
         Restaurant myRestaurant = new Restaurant();
 
-        boolean isOpen = myRestaurant.isOpen(Restaurant.MONDAY);
+        boolean isOpen = myRestaurant.isOpen(DayOfWeek.MONDAY);
 
         assertTrue(isOpen);
     }
+
+
 }
