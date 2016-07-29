@@ -1,9 +1,8 @@
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 
-import static java.time.DayOfWeek.MONDAY;
-import static java.time.DayOfWeek.TUESDAY;
-import static java.time.DayOfWeek.WEDNESDAY;
 
 /**
  * @author Hugh Glykod
@@ -12,63 +11,14 @@ public class Restaurant {
 
     private String name;
 
-    private String mondayOpen = "09:00";
-    private String mondayClose = "18:00";
-    private String tuesdayOpen = "09:00";
-    private String tuesdayClose = "18:00";
-    private String wednesdayOpen = "09:00";
-    private String wednesdayClose = "18:00";
-    private String thursdayOpen = "09:00";
-    private String thursdayClose = "18:00";
-    private String fridayOpen = "09:00";
-    private String fridayClose = "18:00";
-    private String saturdayOpen = "09:00";
-    private String saturdayClose = "18:00";
+    private Map<DayOfWeek, TimeSpan> openingHours;
+
+    public Restaurant() {
+        this.setOpeningHours( getDefaultOpeningHours() );
+    }
 
     public boolean isOpen(DayOfWeek day) {
-        if (day == MONDAY) {
-            if (LocalTime.now().isAfter(LocalTime.parse(mondayOpen)) && LocalTime.now().isBefore(LocalTime.parse(mondayClose))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (day == TUESDAY) {
-            if (LocalTime.now().isAfter(LocalTime.parse(tuesdayOpen)) && LocalTime.now().isBefore(LocalTime.parse(tuesdayClose))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (day == WEDNESDAY) {
-            if (LocalTime.now().isAfter(LocalTime.parse(wednesdayOpen)) && LocalTime.now().isBefore(LocalTime.parse(wednesdayClose))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (day == DayOfWeek.THURSDAY) {
-            if (LocalTime.now().isAfter(LocalTime.parse(thursdayOpen)) && LocalTime.now().isBefore(LocalTime.parse(thursdayClose))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (day == DayOfWeek.FRIDAY) {
-            if (LocalTime.now().isAfter(LocalTime.parse(fridayOpen)) && LocalTime.now().isBefore(LocalTime.parse(fridayClose))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (day == DayOfWeek.SATURDAY) {
-            if (LocalTime.now().isAfter(LocalTime.parse(saturdayOpen)) && LocalTime.now().isBefore(LocalTime.parse(saturdayClose))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return false;
+        return openingHours.get(day).isBetween(LocalTime.now());
     }
 
     public String getName() {
@@ -79,99 +29,29 @@ public class Restaurant {
         this.name = name;
     }
 
-    public String getMondayOpen() {
-        return mondayOpen;
+    public Map<DayOfWeek, TimeSpan> getOpeningHours() {
+        if (openingHours == null) {
+            openingHours = new HashMap<>();
+        }
+        return openingHours;
     }
 
-    public void setMondayOpen(String mondayOpen) {
-        this.mondayOpen = mondayOpen;
+    public void setOpeningHours(Map<DayOfWeek, TimeSpan> openingHours) {
+        this.openingHours = openingHours;
     }
 
-    public String getMondayClose() {
-        return mondayClose;
-    }
+    private Map<DayOfWeek, TimeSpan> getDefaultOpeningHours() {
+        Map<DayOfWeek, TimeSpan> hours = new HashMap<>();
 
-    public void setMondayClose(String mondayClose) {
-        this.mondayClose = mondayClose;
-    }
+        TimeSpan defaultOpeningHours = new TimeSpan("09:00", "18:00");
 
-    public String getTuesdayOpen() {
-        return tuesdayOpen;
-    }
+        hours.put(DayOfWeek.MONDAY, defaultOpeningHours);
+        hours.put(DayOfWeek.TUESDAY, defaultOpeningHours);
+        hours.put(DayOfWeek.WEDNESDAY, defaultOpeningHours);
+        hours.put(DayOfWeek.THURSDAY, defaultOpeningHours);
+        hours.put(DayOfWeek.FRIDAY, defaultOpeningHours);
+        hours.put(DayOfWeek.SATURDAY, defaultOpeningHours);
 
-    public void setTuesdayOpen(String tuesdayOpen) {
-        this.tuesdayOpen = tuesdayOpen;
-    }
-
-    public String getTuesdayClose() {
-        return tuesdayClose;
-    }
-
-    public void setTuesdayClose(String tuesdayClose) {
-        this.tuesdayClose = tuesdayClose;
-    }
-
-    public String getWednesdayOpen() {
-        return wednesdayOpen;
-    }
-
-    public void setWednesdayOpen(String wednesdayOpen) {
-        this.wednesdayOpen = wednesdayOpen;
-    }
-
-    public String getWednesdayClose() {
-        return wednesdayClose;
-    }
-
-    public void setWednesdayClose(String wednesdayClose) {
-        this.wednesdayClose = wednesdayClose;
-    }
-
-    public String getThursdayOpen() {
-        return thursdayOpen;
-    }
-
-    public void setThursdayOpen(String thursdayOpen) {
-        this.thursdayOpen = thursdayOpen;
-    }
-
-    public String getThursdayClose() {
-        return thursdayClose;
-    }
-
-    public void setThursdayClose(String thursdayClose) {
-        this.thursdayClose = thursdayClose;
-    }
-
-    public String getFridayOpen() {
-        return fridayOpen;
-    }
-
-    public void setFridayOpen(String fridayOpen) {
-        this.fridayOpen = fridayOpen;
-    }
-
-    public String getFridayClose() {
-        return fridayClose;
-    }
-
-    public void setFridayClose(String fridayClose) {
-        this.fridayClose = fridayClose;
-    }
-
-    public String getSaturdayOpen() {
-        return saturdayOpen;
-    }
-
-    public void setSaturdayOpen(String saturdayOpen) {
-        this.saturdayOpen = saturdayOpen;
-    }
-
-    public String getSaturdayClose() {
-        return saturdayClose;
-    }
-
-    public void setSaturdayClose(String saturdayClose) {
-        this.saturdayClose = saturdayClose;
+        return hours;
     }
 }
