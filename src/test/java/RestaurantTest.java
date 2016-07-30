@@ -20,5 +20,15 @@ public class RestaurantTest {
         assertTrue(isOpen);
     }
 
+    @Test
+    public void testNoArgumentIsOpen() {
+
+        Restaurant myRestaurant = new Restaurant();
+
+        boolean isOpen = myRestaurant.isOpen();
+
+        assertTrue(isOpen);
+    }
+
 
 }

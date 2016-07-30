@@ -1,4 +1,5 @@
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +18,13 @@ public class Restaurant {
         this.setOpeningHours( getDefaultOpeningHours() );
     }
 
+    // This version of isOpen uses today's day of week by default
+    public boolean isOpen() {
+        return this.isOpen(LocalDateTime.now().getDayOfWeek());
+    }
+
     public boolean isOpen(DayOfWeek day) {
-        return openingHours.get(day).isBetween(LocalTime.now());
+        return openingHours.get( day ).isBetween(LocalTime.now());
     }
 
     public String getName() {
